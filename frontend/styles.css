@@ -1,0 +1,353 @@
+/* ============================================================
+   智能语音聊天助手 · 阶段一
+   视觉参考：浅灰紫强调色 + 白色卡片 + 圆角标签
+   ============================================================ */
+
+:root {
+  --vc-bg: #fbfbfd;
+  --vc-card: #ffffff;
+  --vc-border: #eceef4;
+  --vc-text: #1e2230;
+  --vc-muted: #737a8c;
+  --vc-accent: #5b5bd6;
+  --vc-accent-soft: #eef1ff;
+  --vc-accent-border: #dfe3ff;
+  --vc-accent-text: #5157c8;
+}
+
+html,
+body,
+gradio-app {
+  background: var(--vc-bg) !important;
+}
+
+gradio-app {
+  display: block !important;
+  width: 100% !important;
+}
+
+.gradio-container {
+  width: 100% !important;
+  max-width: 1120px !important;
+  margin: 0 auto !important;
+  padding: 30px 30px 16px !important;
+  background: var(--vc-bg) !important;
+  color: var(--vc-text);
+  font-family: "Inter", "PingFang SC", "Microsoft YaHei UI", "Microsoft YaHei", system-ui, sans-serif !important;
+}
+
+.main {
+  width: 100% !important;
+  max-width: 1120px !important;
+  padding: 0 !important;
+}
+
+.main > .wrap,
+.main > .wrap > .contain,
+#component-0,
+#workspace {
+  width: 100% !important;
+}
+
+footer {
+  display: none !important;
+}
+
+/* ---------- 顶部标题 ---------- */
+#app-header {
+  margin-bottom: 18px;
+}
+
+#app-header .html-container,
+#app-header .prose {
+  padding: 0 !important;
+}
+
+.app-title {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.app-logo {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  color: #242838;
+}
+
+.app-logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.app-title h1 {
+  margin: 0;
+  color: #171a24;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+.app-subtitle {
+  margin: 7px 0 0;
+  color: var(--vc-muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+
+/* ---------- 两栏布局 ---------- */
+#workspace {
+  gap: 24px !important;
+  align-items: flex-start !important;
+}
+
+#left-col,
+#right-col {
+  gap: 12px !important;
+  min-width: 0 !important;
+}
+
+/* ---------- 卡片 ---------- */
+#history,
+#status-card,
+#recorder,
+#reply-audio {
+  overflow: hidden;
+  background: var(--vc-card) !important;
+  border: 1px solid var(--vc-border) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 1px 2px rgba(23, 26, 36, 0.03);
+}
+
+/* ---------- 标签（对话历史 / 系统状态 / 点击录音 / 语音回复） ---------- */
+[data-testid="block-label"] {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  margin: 11px 0 0 12px !important;
+  padding: 3px 9px !important;
+  background: var(--vc-accent-soft) !important;
+  border: 1px solid var(--vc-accent-border) !important;
+  border-radius: 7px !important;
+  color: var(--vc-accent-text) !important;
+  font-size: 12.5px !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.01em;
+}
+
+[data-testid="block-label"] svg {
+  width: 12px;
+  height: 12px;
+  opacity: 0.9;
+}
+
+/* 系统状态默认使用 HTML 组件的“代码”图标，这里换成一个小圆点 */
+#status-card [data-testid="block-label"] > span {
+  flex: 0 0 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.65;
+}
+
+#status-card [data-testid="block-label"] > span svg {
+  display: none;
+}
+
+/* ---------- 对话历史 ---------- */
+#history {
+  padding-bottom: 8px;
+}
+
+#history .bubble-wrap {
+  background: transparent !important;
+}
+
+#history .message {
+  border-radius: 12px !important;
+  font-size: 13.5px !important;
+  line-height: 1.72 !important;
+}
+
+#history .message.user {
+  background: #eef1ff !important;
+  border: 1px solid #e2e6ff !important;
+  color: #2d335c !important;
+}
+
+#history .message.bot {
+  background: #f7f8fb !important;
+  border: 1px solid #eef0f5 !important;
+  color: #2b3040 !important;
+}
+
+/* ---------- 系统状态 ---------- */
+#status-card {
+  padding-bottom: 12px;
+}
+
+#status-card .html-container {
+  padding: 0 !important;
+}
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px 2px;
+  color: #4a5060;
+  font-size: 13px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.12);
+}
+
+.status-line.busy .status-dot {
+  background: var(--vc-accent);
+  box-shadow: 0 0 0 3px rgba(91, 91, 214, 0.12);
+  animation: vc-pulse 1.2s ease-in-out infinite;
+}
+
+.status-line.warn .status-dot {
+  background: #f59e0b;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.14);
+}
+
+@keyframes vc-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.45; }
+}
+
+/* ---------- 录音卡片 ---------- */
+#recorder {
+  padding-bottom: 12px;
+}
+
+#recorder .audio-container {
+  padding: 4px 13px 0;
+}
+
+#recorder .component-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#recorder .controls {
+  order: 1;
+  gap: 8px !important;
+  margin-top: 2px;
+}
+
+#recorder .microphone,
+#recorder [data-testid="recording-waveform"] {
+  order: 2;
+}
+
+#recorder button.record-button,
+#recorder button.stop-button {
+  height: auto !important;
+  padding: 4px 3px !important;
+  border: 0 !important;
+  border-radius: 6px;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #3f4453 !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+#recorder audio,
+#reply-audio audio {
+  display: none !important;
+}
+
+/* 播放器只保留波形、时间和播放键，避免控件过于拥挤 */
+#recorder .control-wrapper,
+#recorder .rewind,
+#recorder .skip,
+#reply-audio .control-wrapper,
+#reply-audio .rewind,
+#reply-audio .skip {
+  display: none !important;
+}
+
+#recorder .play-pause-button,
+#reply-audio .play-pause-button {
+  color: var(--vc-accent) !important;
+}
+
+#recorder button.record-button::before {
+  width: 9px !important;
+  height: 9px !important;
+  margin: 0 7px 0 1px !important;
+  background: var(--vc-accent) !important;
+}
+
+#recorder select.mic-select {
+  max-width: 155px;
+  height: auto !important;
+  padding: 4px 2px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: #9aa0af !important;
+  font-size: 12px !important;
+}
+
+#recorder .microphone,
+#recorder [data-testid="recording-waveform"] {
+  min-height: 7px;
+  margin: 10px 0 2px;
+  border-radius: 99px;
+  background: #eceef4;
+}
+
+/* ---------- 语音回复 ---------- */
+#reply-audio {
+  min-height: 300px;
+}
+
+#reply-audio .audio-container {
+  padding: 2px 13px 12px;
+}
+
+/* ---------- 底部说明 ---------- */
+#app-footer {
+  margin-top: 16px;
+}
+
+.app-footnote {
+  color: #a4a9b6;
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+/* ---------- 细节 ---------- */
+#history *::-webkit-scrollbar {
+  width: 6px;
+}
+
+#history *::-webkit-scrollbar-thumb {
+  border-radius: 99px;
+  background: #d9dce6;
+}
+
+@media (max-width: 760px) {
+  .gradio-container {
+    padding: 20px 16px 14px !important;
+  }
+
+  .app-title h1 {
+    font-size: 22px;
+  }
+}

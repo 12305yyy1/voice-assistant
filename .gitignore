@@ -1,0 +1,18 @@
+.venv/
+.cache/
+logs/
+__pycache__/
+*.pyc
+
+# 本地凭据，不要提交（模板见 data/.config.yaml.example）
+backend/main/xiaozhi-server/data/.config.yaml
+.env
+.env.local
+
+frontend/.runtime/
+frontend/outputs/
+backend/stage2/logs/
+backend/stage2/outputs/
+backend/main/xiaozhi-server/tmp/
+backend/main/xiaozhi-server/data/bin/
+backend/main/xiaozhi-server/models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/

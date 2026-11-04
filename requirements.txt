@@ -1,0 +1,17 @@
+# 共享 venv 的完整依赖入口（Gradio + 阶段二 ASR/LLM/TTS）
+# 安装：
+#   cd F:\PBL\voice-assistant
+#   .\.venv\Scripts\python.exe -m pip install -r requirements.txt --cache-dir F:\PBL\.cache\pip
+
+-r frontend/requirements.txt
+-r backend/stage2/requirements-core.txt
+
+# 原项目启动所需的插件依赖（已在共享 venv 中安装）
+mcp==2.3.0
+bs4==0.0.2
+cnlunar==0.2.5
+markitdown==0.1.9
+
+# 说明：
+# - 当前 ASR 使用 SherpaASR，未安装 torch / funasr / torchaudio。
+# - Opus 运行库不是一个 pip 包，位于 backend/stage2/bin/opus.dll，由启动脚本加入 PATH。

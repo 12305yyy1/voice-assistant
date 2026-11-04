@@ -1,0 +1,44 @@
+server:
+  ip: 0.0.0.0
+  port: 8000
+  http_port: 8003
+  websocket: ws://127.0.0.1:8000/xiaozhi/v1/
+  vision_explain: http://127.0.0.1:8003/mcp/vision/explain
+  timezone_offset: +8
+  auth:
+    enabled: false
+    allowed_devices: []
+
+prompt: |
+  你是小智，一个简洁、友好的中文语音助手。回答控制在两句话以内，不要输出表情符号或 Markdown。
+
+selected_module:
+  VAD: SileroVAD
+  ASR: SherpaASR
+  LLM: DeepSeekLLM
+  VLLM: ChatGLMVLLM
+  TTS: EdgeTTS
+  Memory: nomem
+  Intent: nointent
+
+ASR:
+  SherpaASR:
+    type: sherpa_onnx_local
+    model_dir: models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17
+    output_dir: tmp/
+    model_type: sense_voice
+
+TTS:
+  EdgeTTS:
+    type: edge
+    voice: zh-CN-XiaoxiaoNeural
+    output_dir: tmp/
+
+# DeepSeek OpenAI 兼容接口。把下面的占位符替换成你自己的 API Key，
+# 并复制本文件为同目录下的 .config.yaml（.config.yaml 已被 .gitignore 忽略）。
+LLM:
+  DeepSeekLLM:
+    type: openai
+    model_name: deepseek-flash
+    url: https://api.deepseek.com
+    api_key: 在此填写你的-DeepSeek-API-Key
